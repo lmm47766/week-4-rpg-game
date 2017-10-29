@@ -12,7 +12,7 @@ var imageOptions = ["assets/images/iron_man.png","assets/images/spiderman.png",
   					   "assets/images/venom.png","assets/images/captain_america.png"];
 
 var headers = ["Iron Man","Spiderman","Venom","Captain America"];
-var HpOptions = ["Iron Man","Spiderman","Venom","Captain America"];
+var hpOpt = ["100","150","200","300"];
 
 
 
@@ -65,37 +65,56 @@ function ran12(){
     newImage.attr("id", ("hero" + (i+1) ));
     newDiv.append(newImage);
 
+    var heroHp = $("<h4>");
+    heroHp.addClass("hp");
+    heroHp.attr("id", ("imageHp" + (i+1) ) );
+    newDiv.append(heroHp);
+    heroHp.text("HP: " + hpOpt[i]);    
+
 
 
   };
 
 
-
+//Starting by choosing the main character
   $(".characters").on("click", function() {
 
       var imageValue = ($(this).attr("id"));
       $("#"+imageValue).attr("status","true" );
-      // var test = ($(this).attr("status"));
-      // console.log(test);
 
+      //For loop to move characters to their respective areas 
+      //(i.e main character vs enemies)
       for (var i = 1; i <= 4; i++) {
-   
-        if ( ($("#image"+i).attr("status") ) === "true") {
-            $("#image"+i).appendTo( $(".myChar") );
-            $("#image"+i).addClass("good");
-        }
-        else {
-            $("#image"+i).appendTo( $(".enemies") );
-            $("#image"+i).addClass("bad");
-        }
+
+          //Checking to see if it was clicked or not
+          if ( ($("#image"+i).attr("status") ) === "true") {
+              $("#image"+i).appendTo( $(".myChar") );
+              $("#image"+i).addClass("good");
+          }
+          else {
+              $("#image"+i).appendTo( $(".enemies") );
+              $("#image"+i).addClass("bad");
+          }
+
       }
 
+      //Choosing your villian
       $(".bad").on("click", function() { 
           var a = ($(this).attr("id"));
           console.log(a);
           $("#" + a).appendTo( $(".defender"));
 
+
       });
+
+
+      $("#btn").on("click", function() { 
+          alert("clicked");
+
+
+      });
+
+
 
 
   });
