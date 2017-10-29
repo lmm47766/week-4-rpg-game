@@ -1,0 +1,20 @@
+.characters{
+	width: 25%;
+	border-style: border box;
+	float: left;
+}
+
+/*h1{
+	font-size: 30px;
+}*/
+
+h4{
+	text-align: center;
+}
+
+
+@media screen and (max-width:600px ) {
+	.characters{
+		width: 40%;
+	}
+}
