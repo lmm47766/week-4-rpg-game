@@ -40,7 +40,7 @@ function rand(){
 };
 
 
-
+//Function to add number to itself
 function add(x) {
   var newNum=0;
   gp.push( parseInt(x));
@@ -53,6 +53,8 @@ function add(x) {
 
 
 //*****************  End of list of functions  ***********************//
+
+newGame();
  
 function newGame () {
 
@@ -169,43 +171,43 @@ function newGame () {
             $("#yourDamage").html(" ");
         }
         else {
-        var a = add(goodPower);
+            var a = add(goodPower);
 
-        $("#yourAttack").html("You attacked "+ badName  +" with " + a + " damage.");
-        $("#yourDamage").html(badName + " attack you with " + badPower + " damage.");
+            $("#yourAttack").html("You attacked "+ badName  +" with " + a + " damage.");
+            $("#yourDamage").html(badName + " attack you with " + badPower + " damage.");
 
-        goodHp = goodHp - badPower;
-        badHp = badHp - a;
-
-
-
-        $(".good1").html(goodHp);
-        $(".bad1").html(badHp);
+            goodHp = goodHp - badPower;
+            badHp = badHp - a;
 
 
-        if (goodHp <= 0) {
-          $("#yourAttack").html("You lose");
-          $("#yourDamage").html("");
-          $("#restart").css('display',"inline");
+
+            $(".good1").html(goodHp);
+            $(".bad1").html(badHp);
+
+
+            if (goodHp <= 0) {
+              $("#yourAttack").html("You lose");
+              $("#yourDamage").html("");
+              $("#restart").css('display',"inline");
+            }
+            else if (badHp <= 0 ) {
+              kills++;
+              newRound=true;
+              enemyChoose=false;
+                  if(kills===3){
+                    $(".defender").empty();
+                    $("#yourAttack").html("You WIN!!!");
+                    $("#yourDamage").html("");
+                  }
+
+                  else { 
+                    $(".defender").empty();
+                    $("#yourAttack").html("You defeated " + badName);
+                    $("#yourDamage").html("Chose new enemy to fight");
+                  }
+              }
+
         }
-        else if (badHp <= 0 ) {
-          kills++;
-          newRound=true;
-          enemyChoose=false;
-              if(kills===3){
-                $(".defender").empty();
-                $("#yourAttack").html("You WIN!!!");
-                $("#yourDamage").html("");
-              }
-
-              else { 
-                $(".defender").empty();
-                $("#yourAttack").html("You defeated " + badName);
-                $("#yourDamage").html("Chose new enemy to fight");
-              }
-          }
-
-      }
 
   });
 
@@ -213,6 +215,10 @@ function newGame () {
 
 
       $("#restart").on("click", function() { 
+        $(".characters").off("click");
+        gp=[];
+        $(".bad").off("click");
+        $("#btn").off("click");
         newRound = false;
         $(".myChar").empty();
         $(".myChar").html("<h2>Your Character</h2>");
@@ -222,7 +228,6 @@ function newGame () {
 
         $(".defender").empty();
         $("#yourAttack").html(" ");
-        // $(".defenders").html("<h2>Defender</h2>");
 
 
         newGame();
@@ -230,6 +235,5 @@ function newGame () {
   
 }
     
-newGame();
 
 
