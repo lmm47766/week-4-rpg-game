@@ -1,27 +1,56 @@
-/*.characters{
-	width: 25%;
-	float: left;
-	margin:0;
-}*/
+body{
+	background-size: 100%;
+	font-family: 'Concert One', cursive;
+}
 
 .images{
 	margin: 0px;
 	border-style: border box;
 }
 
-/*h1{
-	font-size: 30px;
-}*/
 
-h4,h3{
+h4{
 	text-align: center;
 }
 
+h3{
+	margin: 5px;
+	font-size: large;
+}
+
+h2 {
+	font-size: 40px;
+	margin: 0;
+}
+
+.characters{
+	background: white;
+}
 
 #image1,#image2,#image3,#image4{
 	width: 25%;
+	height: 100%;
 	border: 1px solid black;
 	text-align: center;
+	padding: 3px;
+}
+
+img{
+	width: 100px;
+	height: 100px;
+}
+
+
+div{
+	margin:0;
+}
+
+.hp{
+	margin: 0;
+}
+
+.headers{
+	margin: 0;
 }
 
 

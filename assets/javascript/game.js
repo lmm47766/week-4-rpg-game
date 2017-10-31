@@ -7,7 +7,7 @@ var imageOptions = ["assets/images/iron_man.png","assets/images/spiderman.png",
                "assets/images/venom.png","assets/images/captain_america.png"];
 
 var headers = ["Iron Man","Spiderman","Venom","Captain America"];
-var hpOpt = [200,50,180,200];
+var hpOpt = [200,75,100,200];
 var powers = rand();
 var goodHp;
 var goodPower;
@@ -16,6 +16,8 @@ var badPower;
 var badName;
 var newRound = false;
 var gp=[];
+var kills=0;
+var enemyChoose = false;
 
 
 //***************** List of functions  ***********************//
@@ -67,7 +69,7 @@ function newGame () {
     $(".images").append(newDiv);
 
 
-    var namehero = $("<h4>");
+    var namehero = $("<h5>");
     namehero.addClass("headers");
     namehero.attr("id", ("imageH" + (i+1) ) );
     newDiv.append(namehero);
@@ -80,7 +82,7 @@ function newGame () {
     newImage.attr("id", ("hero" + (i+1) ));
     newDiv.append(newImage);
 
-    var heroHp = $("<h3>");
+    var heroHp = $("<h4>");
     heroHp.addClass("hp");
     heroHp.attr("id", ("imageHp" + (i+1) ) );
     newDiv.attr("hps", hpOpt[i] );
@@ -110,13 +112,15 @@ function newGame () {
               $("#image"+i).appendTo( $(".myChar") );
               $("#image"+i).attr("class","col-md-12 col-xs-12 good");
               $("#imageHp"+i).addClass("good1");
+              $("#image"+i).css("background","white");
 
  
           }
           else if ( ($("#image"+i).attr("status") ) === "false" ) {
               $("#image"+i).appendTo( $(".enemies") );
               $("#image"+i).addClass("bad");
-              $("#image"+i).css("background","red");
+              $("#image"+i).css("background","darkred");
+              $("#image"+i).css("color","white");
  
 
 
@@ -134,9 +138,10 @@ function newGame () {
           var a = ($(this).attr("id"));
           $("#" + a).appendTo( $(".defender"));
           $("#" + a).attr("class", "col-md-12 col-xs-12 characters bad defenders");
-          $("#" + a).find('h3').attr("class","hp bad1");
+          $("#" + a).find('h4').attr("class","hp bad1");
           $("#" + a).css("background","black");
-          $("#" + a).css("color","white");
+          // $("#" + a).css("color","white");
+          enemyChoose=true;
   
           badHp = $(this).attr("hps");
           badPower = $(".defenders").attr("power");
@@ -158,9 +163,13 @@ function newGame () {
 
 
       $("#btn").on("click", function() { 
-         
+
+        if (enemyChoose === false) {
+            $("#yourAttack").html("Need to choose an enemy to to attack");
+            $("#yourDamage").html(" ");
+        }
+        else {
         var a = add(goodPower);
-        console.log(a);
 
         $("#yourAttack").html("You attacked "+ badName  +" with " + a + " damage.");
         $("#yourDamage").html(badName + " attack you with " + badPower + " damage.");
@@ -170,8 +179,8 @@ function newGame () {
 
 
 
-        $(".good1").html("HP: " + goodHp);
-        $(".bad1").html("HP: " + badHp);
+        $(".good1").html(goodHp);
+        $(".bad1").html(badHp);
 
 
         if (goodHp <= 0) {
@@ -180,13 +189,25 @@ function newGame () {
           $("#restart").css('display',"inline");
         }
         else if (badHp <= 0 ) {
+          kills++;
           newRound=true;
-          $(".defender").empty();
-          $("#yourAttack").html("You defeated " + badName);
-          $("#yourDamage").html("Chose new enemy to fight");
-        }
+          enemyChoose=false;
+              if(kills===3){
+                $(".defender").empty();
+                $("#yourAttack").html("You WIN!!!");
+                $("#yourDamage").html("");
+              }
 
-      });
+              else { 
+                $(".defender").empty();
+                $("#yourAttack").html("You defeated " + badName);
+                $("#yourDamage").html("Chose new enemy to fight");
+              }
+          }
+
+      }
+
+  });
 
 
 
